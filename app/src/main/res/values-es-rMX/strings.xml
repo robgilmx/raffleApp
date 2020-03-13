@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RoomApp</string>
+    <string name="status">estatus</string>
+    <string name="delete_client_question">"¿Desea eliminar este cliente? "</string>
+    <string name="yes">si</string>
+    <string name="no">no</string>
+    <string name="first_name">Nombres</string>
+    <string name="last_name">Apellidos</string>
+    <string name="confirm">confirmar</string>
+</resources>

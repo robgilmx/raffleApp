@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name" translatable="false">RoomApp</string>
+    <string name="status">Status</string>
+    <string name="delete_client_question">Do you want to delete this client?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="confirm">confirm</string>
+</resources>
