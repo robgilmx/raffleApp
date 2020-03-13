@@ -19,6 +19,9 @@ public interface ClientDao {
     @Insert
     void save(Client client);
 
+    @Insert
+    List<Long> saveAll(List<Client> clients);
+
     @Update
     void update(Client client);
 

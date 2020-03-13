@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +20,17 @@ import com.v3mon.roomapp.R;
 import com.v3mon.roomapp.controller.ClientController;
 import com.v3mon.roomapp.model.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> {
 
     private static final String TAG = "ClientAdapter";
-    private List<Client> clientList;
+    private List<Client> clientList = new ArrayList<>();
     private ClientController clientController;
     private Context context;
 
-    public ClientAdapter(List<Client> clientList) {
-        this.clientList = clientList;
+    public ClientAdapter() {
     }
 
     @NonNull
@@ -94,7 +95,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
         @Override
         public void onClick(View v) {
-            System.out.println("Clicked");
+            Log.d("Adapter","Clicked");
         }
     }
 
@@ -104,5 +105,14 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         } else {
             holder.disableButton.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
         }
+    }
+
+    public List<Client> getClientList() {
+        return clientList;
+    }
+
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
+        notifyDataSetChanged();
     }
 }

@@ -19,6 +19,10 @@ public class ClientController {
         clientDao.save(client);
     }
 
+    public List<Long> saveAll(List<Client> client){
+        return clientDao.saveAll(client);
+    }
+
     public void update(Client client){
         clientDao.update(client);
     }

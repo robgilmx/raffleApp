@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.v3mon.roomapp.controller.ClientController;
 import com.v3mon.roomapp.model.Client;
+import com.v3mon.roomapp.util.AppExecutors;
 import com.v3mon.roomapp.views.ClientAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,9 +33,20 @@ public class ClientsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_clients);
         ButterKnife.bind(this);
         clientController = new ClientController(this.getApplicationContext());
-        List<Client> clients = clientController.findAll();
-        clientAdapter = new ClientAdapter(clients);
+        clientAdapter = new ClientAdapter();
         recyclerView.setAdapter(clientAdapter);
+        loadClientsFromDB();
+    }
+
+    private void loadClientsFromDB() {
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            final List<Client> clients = clientController.findAll();
+            runOnUiThread(() -> {
+              clientAdapter.setClientList(clients);
+              clientAdapter.notifyDataSetChanged();
+              recyclerView.setAdapter(clientAdapter);
+            });
+        });
     }
 
     @OnClick(R.id.client_add_button)

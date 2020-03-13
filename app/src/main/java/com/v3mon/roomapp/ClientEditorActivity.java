@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.v3mon.roomapp.controller.ClientController;
 import com.v3mon.roomapp.model.Client;
+import com.v3mon.roomapp.util.AppExecutors;
 
+import java.util.Collections;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -40,15 +43,32 @@ public class ClientEditorActivity extends AppCompatActivity {
     @OnClick(R.id.save_client_button)
     public void saveOrUpdateClient(){
         if (client == null){
-            client = new Client();
-            client.setFirstName(Objects.requireNonNull(firstNameInput.getText()).toString());
-            client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
-            clientController.save(client);
+            saveClient();
         }else{
-            client.setFirstName(Objects.requireNonNull(firstNameInput.getText()).toString());
-            client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
-            clientController.update(client);
+            updateClient();
         }
+        finish();
     }
+
+    private void updateClient() {
+        client.setFirstName(Objects.requireNonNull(firstNameInput.getText()).toString());
+        client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            clientController.update(client);
+        });
+    }
+
+    private void saveClient() {
+        client = new Client();
+        client.setFirstName(Objects.requireNonNull(firstNameInput.getText()).toString());
+        client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
+        client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            Client other = new Client();
+            other.setFirstName("A");
+            other.setLastName("B");
+            Log.i("Gil" , "Result: " + clientController.saveAll(Collections.singletonList(other)));
+            clientController.save(client);
+        });    }
 
 }
