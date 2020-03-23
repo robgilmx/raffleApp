@@ -6,6 +6,7 @@ import com.v3mon.roomapp.dao.ClientDao;
 import com.v3mon.roomapp.model.Client;
 import com.v3mon.roomapp.util.AppDatabase;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ClientController {
@@ -16,7 +17,7 @@ public class ClientController {
     }
 
     public void save(Client client){
-        clientDao.save(client);
+        clientDao.insert(client);
     }
 
     public List<Long> saveAll(List<Client> client){
@@ -32,6 +33,6 @@ public class ClientController {
     }
 
     public List<Client> findAll(){
-        return clientDao.findAll();
+        return Arrays.asList(clientDao.loadAllUsers());
     }
 }

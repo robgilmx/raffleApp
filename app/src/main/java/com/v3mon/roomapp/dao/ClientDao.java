@@ -16,6 +16,12 @@ public interface ClientDao {
     @Query("select * from clients where is_active = 'true'")
     List<Client> findAll();
 
+    @Query("select * from clients where is_active = '1'")
+    public Client[] loadAllUsers(); //<-- correct
+
+    @Insert
+    public void insert(Client... client); //<-- correct
+
     @Insert
     void save(Client client);
 

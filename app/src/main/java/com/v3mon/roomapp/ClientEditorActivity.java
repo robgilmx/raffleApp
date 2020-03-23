@@ -2,17 +2,13 @@ package com.v3mon.roomapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.v3mon.roomapp.controller.ClientController;
 import com.v3mon.roomapp.model.Client;
 import com.v3mon.roomapp.util.AppExecutors;
 
-import java.util.Collections;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -64,10 +60,10 @@ public class ClientEditorActivity extends AppCompatActivity {
         client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
         client.setLastName(Objects.requireNonNull(lastNameInput.getText()).toString());
         AppExecutors.getInstance().diskIO().execute(() -> {
-            Client other = new Client();
-            other.setFirstName("A");
-            other.setLastName("B");
-            Log.i("Gil" , "Result: " + clientController.saveAll(Collections.singletonList(other)));
+            //Client other = new Client();
+            //other.setFirstName("A");
+            //other.setLastName("B");
+            //Log.i("Gil" , "Result: " + clientController.saveAll(Collections.singletonList(other)));
             clientController.save(client);
         });    }
 
